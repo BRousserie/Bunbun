@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.malee.reorderablelist": {
+      "version": "https://github.com/cfoulston/Unity-Reorderable-List.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ac1f508240fb752b1f9d7c222c231d7f2a33df87"
+    },
     "com.unity.2d.animation": {
       "version": "4.2.5",
       "depth": 0,
@@ -151,6 +158,22 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "st.one-line": {
+      "version": "https://github.com/slavniyteo/one-line.git#master",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "st.rect-ex": "0.2.1"
+      },
+      "hash": "321188262e4cb7bfd8a5bf14611fd3dbeb37a98c"
+    },
+    "st.rect-ex": {
+      "version": "https://github.com/slavniyteo/rect-ex.git#master",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c8c32b33ce250aa927de7f6c79ae7c0b6eab36cb"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
