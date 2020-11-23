@@ -19,9 +19,9 @@ At new year I'd like to have a prototype with the following features :
  - Procedural generation of the map
  - All types of room are functionnal (MinorEnemy, EliteEnemy, Boss, RestSite, Treasure, Store, Mystery)
  - 2 players-combat support
- - >=20 cards implemented (10 cards per player at least)
+ - ≥20 cards implemented (10 cards per player at least)
  - 1 playable act, which implies
-   - >=2 normal ennemies
-   - >=2 elite ennemies
+   - ≥2 normal ennemies
+   - ≥2 elite ennemies
    - 1 boss
  - Save/Load players progression
