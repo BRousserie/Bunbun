@@ -2,7 +2,7 @@
 
 namespace Map
 {
-    public enum NodeType
+    public enum RoomType
     {
         MinorEnemy,
         EliteEnemy,
@@ -12,14 +12,10 @@ namespace Map
         Boss,
         Mystery
     }
-}
 
-namespace Map
-{
-    [CreateAssetMenu]
-    public class NodeBlueprint : ScriptableObject
+    public class RoomPattern : ScriptableObject
     {
         public Sprite sprite;
-        public NodeType nodeType;
+        public RoomType type;
     }
 }

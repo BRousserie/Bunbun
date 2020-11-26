@@ -10,12 +10,10 @@ namespace Map
         {
             DrawDefaultInspector();
 
-            var myScript = (MapManager)target;
-
             GUILayout.Space(10);
 
             if (GUILayout.Button("Generate"))
-                myScript.GenerateNewMap();
+                ((MapManager) target).GenerateNewMap();
         }
     }
 }

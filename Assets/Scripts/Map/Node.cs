@@ -8,45 +8,43 @@ namespace Map
 {
     public class Node
     {
-        public readonly Point point;
+        public readonly string roomPatternName;
         public readonly List<Point> incoming = new List<Point>();
         public readonly List<Point> outgoing = new List<Point>();
+        public readonly Point point;
+
         [JsonConverter(typeof(StringEnumConverter))]
-        public readonly NodeType nodeType;
-        public readonly string blueprintName;
+        public readonly RoomType roomType;
+
         public Vector2 position;
 
-        public Node(NodeType nodeType, string blueprintName, Point point)
+        public Node(RoomType roomType, string roomPatternName, Point point)
         {
-            this.nodeType = nodeType;
-            this.blueprintName = blueprintName;
+            this.roomType = roomType;
+            this.roomPatternName = roomPatternName;
             this.point = point;
         }
 
         public void AddIncoming(Point p)
         {
-            if (incoming.Any(element => element.Equals(p)))
-                return;
-
-            incoming.Add(p);
+            if (!incoming.Any(element => element.Equals(p)))
+                incoming.Add(p);
         }
 
         public void AddOutgoing(Point p)
         {
-            if (outgoing.Any(element => element.Equals(p)))
-                return;
-
-            outgoing.Add(p);
+            if (!outgoing.Any(element => element.Equals(p)))
+                outgoing.Add(p);
         }
 
         public void RemoveIncoming(Point p)
         {
-            incoming.RemoveAll(element => element.Equals(p));
+            incoming.Remove(p);
         }
 
         public void RemoveOutgoing(Point p)
         {
-            outgoing.RemoveAll(element => element.Equals(p));
+            outgoing.Remove(p);
         }
 
         public bool HasNoConnections()

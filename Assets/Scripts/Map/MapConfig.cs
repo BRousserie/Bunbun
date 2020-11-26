@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Malee.List;
 using OneLine;
 using UnityEngine;
@@ -8,17 +9,15 @@ namespace Map
     [CreateAssetMenu]
     public class MapConfig : ScriptableObject
     {
-        public List<NodeBlueprint> nodeBlueprints;
+        [Reorderable] public ListOfMapLayers layers;
+        
+        [OneLineWithHeader] public BoundedInt numOfPreBossNodes;
+        [OneLineWithHeader] public BoundedInt numOfStartingNodes;
+
+        public List<RoomPattern> roomPatterns;
         public int GridWidth => Mathf.Max(numOfPreBossNodes.max, numOfStartingNodes.max);
 
-        [OneLineWithHeader]
-        public IntMinMax numOfPreBossNodes;
-        [OneLineWithHeader]
-        public IntMinMax numOfStartingNodes;
-        [Reorderable]
-        public ListOfMapLayers layers;
-
-        [System.Serializable]
+        [Serializable]
         public class ListOfMapLayers : ReorderableArray<MapLayer>
         {
         }

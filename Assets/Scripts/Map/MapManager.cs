@@ -1,6 +1,5 @@
-﻿using System.Linq;
+﻿using Newtonsoft.Json;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace Map
 {
@@ -15,42 +14,33 @@ namespace Map
         {
             if (PlayerPrefs.HasKey("Map"))
             {
-                var mapJson = PlayerPrefs.GetString("Map");
-                var map = JsonConvert.DeserializeObject<Map>(mapJson);
-                // using this instead of .Contains()
-                if (map.path.Any(p => p.Equals(map.GetBossNode().point)))
-                {
-                    // payer has already reached the boss, generate a new map
-                    GenerateNewMap();
-                }
-                else
+                string mapJson = PlayerPrefs.GetString("Map");
+                Map map = JsonConvert.DeserializeObject<Map>(mapJson);
+                // TODO: Compare performance of Contains() with Any(p => p.Equals(map.GetBossNode().point))
+                if (!map.playerExploredPoints.Contains(map.GetBossNode().point))
                 {
                     CurrentMap = map;
-                    // player has not reached the boss yet, load the current map
                     view.ShowMap(map);
-                }
+                } 
+                else GenerateNewMap();
             }
-            else
-            {
-                GenerateNewMap();
-            }
+            else GenerateNewMap();
         }
 
         public void GenerateNewMap()
         {
-            var map = MapGenerator.GetMap(config);
-            CurrentMap = map;
-            Debug.Log(map.ToJson());
-            view.ShowMap(map);
+            CurrentMap = MapGenerator.GetMap(config);
+            Debug.Log(CurrentMap.ToJson());
+            view.ShowMap(CurrentMap);
         }
 
         public void SaveMap()
         {
-            if (CurrentMap == null) return;
-
-            var json = JsonConvert.SerializeObject(CurrentMap);
-            PlayerPrefs.SetString("Map", json);
-            PlayerPrefs.Save();
+            if (CurrentMap != null)
+            {
+                PlayerPrefs.SetString("Map", JsonConvert.SerializeObject(CurrentMap));
+                PlayerPrefs.Save();
+            }
         }
 
         private void OnApplicationQuit()

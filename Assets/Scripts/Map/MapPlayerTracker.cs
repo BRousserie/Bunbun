@@ -7,13 +7,11 @@ namespace Map
 {
     public class MapPlayerTracker : MonoBehaviour
     {
-        public bool lockAfterSelecting = false;
+        public static MapPlayerTracker Instance;
         public float enterNodeDelay = 1f;
+        public bool lockAfterSelecting;
         public MapManager mapManager;
         public MapView view;
-
-        public static MapPlayerTracker Instance;
-
         public bool Locked { get; set; }
 
         private void Awake()
@@ -23,36 +21,34 @@ namespace Map
 
         public void SelectNode(MapNode mapNode)
         {
-            if (Locked) return;
-
-            // Debug.Log("Selected node: " + mapNode.Node.point);
-
-            if (mapManager.CurrentMap.path.Count == 0)
+            if (!Locked)
             {
-                // player has not selected the node yet, he can select any of the nodes with y = 0
-                if (mapNode.Node.point.y == 0)
-                    SendPlayerToNode(mapNode);
+                if (mapManager.CurrentMap.playerExploredPoints.Count == 0)
+                {
+                    if (mapNode.Node.point.y == 0)
+                        SendPlayerToNode(mapNode);
+                    else
+                        PlayWarningThatNodeCannotBeAccessed();
+                }
                 else
-                    PlayWarningThatNodeCannotBeAccessed();
-            }
-            else
-            {
-                var currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
-                var currentNode = mapManager.CurrentMap.GetNode(currentPoint);
+                {
+                    Point currentPoint = mapManager.CurrentMap.playerExploredPoints[mapManager.CurrentMap.playerExploredPoints.Count - 1];
+                    Node currentNode = mapManager.CurrentMap.GetNodeAtPoint(currentPoint);
 
-                if (currentNode != null && currentNode.outgoing.Any(point => point.Equals(mapNode.Node.point)))
-                    SendPlayerToNode(mapNode);
-                else
-                    PlayWarningThatNodeCannotBeAccessed();
-            }
+                    if (currentNode != null && currentNode.outgoing.Any(point => point.Equals(mapNode.Node.point)))
+                        SendPlayerToNode(mapNode);
+                    else
+                        PlayWarningThatNodeCannotBeAccessed();
+                }
+            }        
         }
 
         private void SendPlayerToNode(MapNode mapNode)
         {
             Locked = lockAfterSelecting;
-            mapManager.CurrentMap.path.Add(mapNode.Node.point);
+            mapManager.CurrentMap.playerExploredPoints.Add(mapNode.Node.point);
             mapManager.SaveMap();
-            view.SetAttainableNodes();
+            view.UpdateAttainableNodes();
             view.SetLineColors();
             mapNode.ShowSwirlAnimation();
 
@@ -61,26 +57,25 @@ namespace Map
 
         private static void EnterNode(MapNode mapNode)
         {
-            // we have access to blueprint name here as well
-            Debug.Log("Entering node: " + mapNode.Node.blueprintName + " of type: " + mapNode.Node.nodeType);
+            Debug.Log("Entering node: " + mapNode.Node.roomPatternName + " of type: " + mapNode.Node.roomType);
             // load appropriate scene with context based on nodeType:
             // or show appropriate GUI over the map: 
             // if you choose to show GUI in some of these cases, do not forget to set "Locked" in MapPlayerTracker back to false
-            switch (mapNode.Node.nodeType)
+            switch (mapNode.Node.roomType)
             {
-                case NodeType.MinorEnemy:
+                case RoomType.MinorEnemy:
                     break;
-                case NodeType.EliteEnemy:
+                case RoomType.EliteEnemy:
                     break;
-                case NodeType.RestSite:
+                case RoomType.RestSite:
                     break;
-                case NodeType.Treasure:
+                case RoomType.Treasure:
                     break;
-                case NodeType.Store:
+                case RoomType.Store:
                     break;
-                case NodeType.Boss:
+                case RoomType.Boss:
                     break;
-                case NodeType.Mystery:
+                case RoomType.Mystery:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

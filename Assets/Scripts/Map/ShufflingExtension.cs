@@ -6,17 +6,14 @@ namespace Map
 {
     public static class ShufflingExtension
     {
-
         // not my code!!!!!
         // got it here: http://stackoverflow.com/questions/273313/randomize-a-listt/1262619#1262619 
-        private static System.Random rng = new System.Random();
+        private static readonly Random rng = new Random();
 
         public static void Shuffle<T>(this IList<T> list)
         {
-            int n = list.Count;
-            while (n > 1)
+            for (int n = list.Count - 1; n > 1; --n)
             {
-                n--;
                 int k = rng.Next(n + 1);
                 T value = list[k];
                 list[k] = list[n];
