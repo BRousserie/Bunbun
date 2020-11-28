@@ -6,8 +6,8 @@ namespace Map
     [Serializable]
     public class BoundedFloat
     {
-        public float max;
         public float min;
+        public float max;
         private float value = 0.0f;
 
         public float GetValue()
@@ -23,8 +23,8 @@ namespace Map
     [Serializable]
     public class BoundedInt
     {
-        public int max;
         public int min;
+        public int max;
         private int value;
 
         public int GetValue()

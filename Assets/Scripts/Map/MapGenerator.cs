@@ -13,13 +13,14 @@ namespace Map
 
         private static List<List<Point>> paths;
         private static readonly List<List<Node>> nodesLayers = new List<List<Node>>();
+        private static float layerDistanceSum;
 
         public static Map GetMap(MapConfig _config)
         {
             if (_config != null)
             {
                 config = _config;
-
+                layerDistanceSum = 0f;
                 GenerateLayers();
                 GeneratePaths();
                 SetUpConnections();
@@ -38,7 +39,6 @@ namespace Map
         private static void GenerateLayers()
         {
             nodesLayers.Clear();
-            
             foreach (MapLayer layer in config.layers)
                 GenerateNodesInLayer(layer);
         }
@@ -46,9 +46,8 @@ namespace Map
         private static void GenerateNodesInLayer(MapLayer layer)
         {
             List<Node> nodesOnThisLayer = new List<Node>();
-            Vector2 layerOffset = new Vector2(
-                layer.nodesApartDistance * config.GridWidth / 2f,
-                layer.distanceFromPreviousLayer.GetNewValue());
+            layerDistanceSum += layer.distanceFromPreviousLayer.GetNewValue();
+            Vector2 layerOffset = new Vector2(layer.nodesApartDistance * config.GridWidth / 2f, layerDistanceSum);
 
             for (int nodeIndex = 0; nodeIndex < config.GridWidth; nodeIndex++)
                 nodesOnThisLayer.Add(GenerateNode(layer, nodeIndex, layerOffset));
@@ -178,7 +177,7 @@ namespace Map
             {
                 List<Node> layerNodes = nodesLayers[layerIndex];
                 MapLayer layer = config.layers[layerIndex];
-                float distToNextLayer = (layerIndex + 1 <= config.layers.Count)
+                float distToNextLayer = (layerIndex + 1 < config.layers.Count)
                     ? config.layers[layerIndex + 1].distanceFromPreviousLayer.GetValue() : 0f;
                 float distToPreviousLayer = layer.distanceFromPreviousLayer.GetValue();
 
@@ -228,10 +227,9 @@ namespace Map
                 
                 while (path.Last().y != toY)
                 {
-                    path.Add(new Point(
-                        Random.Range(
+                    path.Add(new Point(Random.Range(
                             Mathf.Max(0, path.Last().x - 1),
-                            Mathf.Max(path.Last().x + 1, config.GridWidth)),
+                            Mathf.Min(path.Last().x + 1, config.GridWidth - 1) + 1),
                         path.Last().y + direction));
                 }
                 return path;

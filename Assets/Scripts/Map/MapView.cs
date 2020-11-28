@@ -153,7 +153,6 @@ namespace Map
                         break;
                     case MapOrientation.TopToBottom:
                         SetVerticalOrientation(scrollNonUi, 0, distanceLimit, -mapEndsMargin, 180);
-                        mapParent.transform.eulerAngles = new Vector3(0, 0, 180);
                         break;
                     case MapOrientation.RightToLeft:
                         SetHorizontalOrientation(scrollNonUi, 0, distanceLimit, -mapEndsMargin * cam.aspect, 90);
@@ -169,23 +168,19 @@ namespace Map
         
         private void SetVerticalOrientation(ScrollNonUI scrollNonUi, float ymin, float ymax, float offset, float angle)
         {
-            AdjustTransform(angle, new Vector3(0, offset, 0));
+            mapParent.transform.eulerAngles = new Vector3(0, 0, angle);
+            firstParent.transform.localPosition += new Vector3(0, offset, 0);
             scrollNonUi.yConstraints.min = ymin;
             scrollNonUi.yConstraints.max = ymax;
         }
 
         private void SetHorizontalOrientation(ScrollNonUI scrollNonUi, float xmin, float xmax, float offset, float angle)
         {
+            mapParent.transform.eulerAngles = new Vector3(0, 0, angle);
             float bossY = MapNodes.FirstOrDefault(n => n.Node.roomType == RoomType.Boss).transform.position.y;
-            AdjustTransform(angle, new Vector3(offset, -bossY, 0));
+            firstParent.transform.localPosition += new Vector3(offset, -bossY, 0);
             scrollNonUi.xConstraints.min = xmin;
             scrollNonUi.xConstraints.max = xmax;
-        }
-
-        private void AdjustTransform(float angle, Vector3 position)
-        {
-            mapParent.transform.eulerAngles = new Vector3(0, 0, angle);
-            firstParent.transform.localPosition += position;
         }
 
         private void ResetNodesRotation()
@@ -243,16 +238,16 @@ namespace Map
                 backgroundObject.transform.SetParent(mapParent.transform);
                 
                 MapNode bossNode = MapNodes.FirstOrDefault(node => node.Node.roomType == RoomType.Boss);
-                float span = m.DistanceBetweenFirstAndLastLayers();
+                float ysize = m.DistanceBetweenFirstAndLastLayers() + yOffset * 2f;
                 backgroundObject.transform.localPosition = new Vector3(
-                    bossNode.transform.localPosition.x, span / 2f, 0f);
+                    bossNode.transform.localPosition.x, ysize  / 2f, 0f);
                 backgroundObject.transform.localRotation = Quaternion.identity;
                 
                 SpriteRenderer spriteRenderer = backgroundObject.AddComponent<SpriteRenderer>();
                 spriteRenderer.color = backgroundColor;
                 spriteRenderer.drawMode = SpriteDrawMode.Sliced;
                 spriteRenderer.sprite = background;
-                spriteRenderer.size = new Vector2(xSize, span + yOffset * 2f);
+                spriteRenderer.size = new Vector2(xSize, ysize);
             }
         }
 

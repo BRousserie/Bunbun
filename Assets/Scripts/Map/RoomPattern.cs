@@ -13,6 +13,7 @@ namespace Map
         Mystery
     }
 
+    [CreateAssetMenu]
     public class RoomPattern : ScriptableObject
     {
         public Sprite sprite;

@@ -5,7 +5,7 @@ namespace Map
     public class DottedLineRenderer : MonoBehaviour
     {
         private LineRenderer lineRenderer;
-        private Renderer renderer;
+        private new Renderer renderer;
         public bool scaleInUpdate;
 
         private void Start()

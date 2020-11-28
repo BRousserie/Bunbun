@@ -19,8 +19,14 @@ namespace Map
 
         public void SetColor(Color color)
         {
-            for (int keyIndex = 0; keyIndex < lineRenderer.colorGradient.colorKeys.Length; keyIndex++)
-                lineRenderer.colorGradient.colorKeys[keyIndex].color = color;
+            Gradient gradient = lineRenderer.colorGradient;
+            GradientColorKey[] colorKeys = gradient.colorKeys;
+            
+            for (int key = 0; key < colorKeys.Length; key++)
+                colorKeys[key].color = color;
+
+            gradient.colorKeys = colorKeys;
+            lineRenderer.colorGradient = gradient;
         }
     }
 }
