@@ -25,3 +25,12 @@ At new year I'd like to have a prototype with the following features :
    - ≥2 elite ennemies
    - 1 boss
  - Save/Load players progression
+
+## Credits
+Currently uses
+ - [Kenney](https://www.kenney.nl) Assets (Creative Commons)
+ - [game-icons.net](https://game-icons.net) Assets (Creative Commons)
+   - [delapouite](https://delapouite.com)
+   - [lorc](http://lorcblog.blogspot.com)
+   
+Procedural Generation is based on [this](https://github.com/silverua/slay-the-spire-map-in-unity) project, but I rewrote the code my own way (using more self-explanatory names, explicit types, avoiding code redundancy and breaking down logic into smaller functions for readability and easy understanding...).

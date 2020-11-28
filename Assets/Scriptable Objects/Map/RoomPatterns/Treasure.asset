@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e21f944b16505419d6c7dba624e2b3, type: 3}
+  m_Name: Treasure
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: c84821376df5741479c3100d970e10ba, type: 3}
+  type: 3

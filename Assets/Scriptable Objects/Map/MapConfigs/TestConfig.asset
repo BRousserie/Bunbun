@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21f71146b25f5f4faa3957f18d627ba, type: 3}
+  m_Name: Act1
+  m_EditorClassIdentifier: 
+  layers:
+    array:
+    - distanceFromPreviousLayer:
+        min: 2
+        max: 3
+      nodesApartDistance: 2
+      positionRandomRate: 0
+      roomType: 0
+      roomTypeRandomRate: 0
+    - distanceFromPreviousLayer:
+        min: 2
+        max: 3
+      nodesApartDistance: 2
+      positionRandomRate: 0
+      roomType: 1
+      roomTypeRandomRate: 0
+    - distanceFromPreviousLayer:
+        min: 2
+        max: 3
+      nodesApartDistance: 2
+      positionRandomRate: 0
+      roomType: 2
+      roomTypeRandomRate: 0
+    - distanceFromPreviousLayer:
+        min: 2
+        max: 3
+      nodesApartDistance: 2
+      positionRandomRate: 0
+      roomType: 3
+      roomTypeRandomRate: 0
+    - distanceFromPreviousLayer:
+        min: 2
+        max: 3
+      nodesApartDistance: 2
+      positionRandomRate: 0
+      roomType: 4
+      roomTypeRandomRate: 0
+    - distanceFromPreviousLayer:
+        min: 2
+        max: 3
+      nodesApartDistance: 2
+      positionRandomRate: 0
+      roomType: 6
+      roomTypeRandomRate: 0
+    - distanceFromPreviousLayer:
+        min: 2
+        max: 3
+      nodesApartDistance: 2
+      positionRandomRate: 0
+      roomType: 5
+      roomTypeRandomRate: 0
+  numOfPreBossNodes:
+    min: 3
+    max: 5
+  numOfStartingNodes:
+    min: 3
+    max: 5
+  roomPatterns:
+  - {fileID: 11400000, guid: d64fd1775c37a054e8060512693422d2, type: 2}
+  - {fileID: 11400000, guid: 1ac8c1492c0f4f745b99465edd874e42, type: 2}
+  - {fileID: 11400000, guid: 274cabd07df24a248ac9bbd3f7684bc3, type: 2}
+  - {fileID: 11400000, guid: d0391cb25813b794784f2ff76344a2eb, type: 2}
+  - {fileID: 11400000, guid: b0b03e99f1a0e9d42898290a7b866239, type: 2}
+  - {fileID: 11400000, guid: fe8e2c893d62b754faf298e116891e3a, type: 2}
+  - {fileID: 11400000, guid: b3c9704f9ae209148ba1a9cd55417000, type: 2}
