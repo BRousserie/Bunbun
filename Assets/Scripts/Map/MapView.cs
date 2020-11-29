@@ -18,7 +18,6 @@ namespace Map
         public MapManager mapManager;
         public MapOrientation orientation;
 
-        [Tooltip("List of the MapConfigs to use (= acts)")] public List<MapConfig> allMapConfigs;
         public GameObject nodePrefab;
         [Tooltip("Offset of both ends of the map from the edges of the screen")] public float mapEndsMargin;
         
@@ -44,6 +43,7 @@ namespace Map
         private List<List<Point>> paths;
         private readonly List<MapNode> MapNodes = new List<MapNode>();
         private readonly List<LineConnection> lineConnections = new List<LineConnection>();
+        private List<MapConfig> allMapConfigs;
 
         public static MapView Instance;
 
@@ -51,6 +51,8 @@ namespace Map
         {
             Instance = this;
             cam = Camera.main;
+            allMapConfigs = Resources.LoadAll("ScriptableObjects/Map/MapConfigs", typeof(MapConfig))
+                .Cast<MapConfig>().ToList();
         }
 
         public void ShowMap(Map m)
