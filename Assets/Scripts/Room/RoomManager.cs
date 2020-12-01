@@ -9,12 +9,13 @@ public class RoomManager : Singleton<RoomManager>
 {
     [HideInInspector] public RoomType CurrentRoomType;
     [HideInInspector] public Room CurrentRoom;
-    
-    
+    [HideInInspector] public GameObject RoomUIPrefab;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        RoomUIPrefab = Resources.Load<GameObject>("Prefabs/RoomUI");
     }
 
     // Update is called once per frame
@@ -23,35 +24,43 @@ public class RoomManager : Singleton<RoomManager>
         
     }
     
-    public void EnterNode(RoomType newRoomType)
+    public void EnterRoom(RoomType newRoomType)
     {
-        Debug.Log("EnterNode " + newRoomType);
+        Debug.Log("EnterRoom " + newRoomType);
         CurrentRoomType = newRoomType;
         switch (CurrentRoomType)
         {
             case RoomType.MinorEnemy:
-                SceneManager.LoadScene("Combat");
+                SceneManager.LoadScene("Combat", LoadSceneMode.Additive);
                 break;
             case RoomType.EliteEnemy:
-                SceneManager.LoadScene("Combat");
+                SceneManager.LoadScene("Combat", LoadSceneMode.Additive);
                 break;
             case RoomType.RestSite:
-                SceneManager.LoadScene("Restsite");
+                SceneManager.LoadScene("Restsite", LoadSceneMode.Additive);
                 break;
             case RoomType.Treasure:
-                SceneManager.LoadScene("Treasure");
+                SceneManager.LoadScene("Treasure", LoadSceneMode.Additive);
                 break;
             case RoomType.Store:
-                SceneManager.LoadScene("Store");
+                SceneManager.LoadScene("Store", LoadSceneMode.Additive);
                 break;
             case RoomType.Boss:
-                SceneManager.LoadScene("Combat");
+                SceneManager.LoadScene("Combat", LoadSceneMode.Additive);
                 break;
             case RoomType.Mystery:
-                EnterNode(MapGenerator.RandomRoomTypes.Random());
+                EnterRoom(MapGenerator.RandomRoomTypes.Random());
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
+        SceneManager.MoveGameObjectToScene(Instantiate(RoomUIPrefab), SceneManager.GetSceneAt(1));
+    }
+
+    public void ExitRoom()
+    {
+        SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1));
+        MapPlayerTracker.Instance.Locked = false;
+        MapView.Instance.SetVisible(true);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public enum Rarity
 {
-    Common, Rare, Epic, Legendary
+    Default, Common, Rare, Epic, Legendary
 }
 
 public enum CardType

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Singleton<T> : MonoBehaviour where T : Component
 {
@@ -32,6 +30,5 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
             DontDestroyOnLoad ( gameObject );
         }
         else Destroy ( gameObject );
-		
     }
 }

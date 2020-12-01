@@ -51,6 +51,7 @@ namespace Map
                 .OnComplete(() =>
                 {
                     RoomManager.Instance.EnterRoom(mapNode.Node.roomType);
+                    view.SetVisible(false);
                     view.UpdateAttainableNodes();
                     view.SetLineColors();
                 });
