@@ -5,23 +5,26 @@ using System.Linq;
 using UnityEngine;
 using Random = System.Random;
 
-public class CardManager : MonoBehaviour
+public class CardManager : Singleton<CardManager>
 {
-    public List<Card> AllCards { get; private set; }
+    public List<Card> AllPlayerCards { get; private set; }
     
     // Start is called before the first frame update
     void Start()
     {
-        AllCards = Resources.LoadAll("ScriptableObjects/Cards/Players", typeof(Card)).Cast<Card>().ToList();
-        DontDestroyOnLoad(this);
+        AllPlayerCards = Resources.LoadAll("ScriptableObjects/Cards/Players", typeof(Card)).Cast<Card>().ToList();
     }
 
-    public Card GetRandomCard(CardType type = CardType.Default)
+    public Card GetRandomCard(CardType type = CardType.Default, Rarity rarity = Rarity.Default)
     {
-        if (type == CardType.Default)
-            return AllCards.Random();
-        else
-            return AllCards.Where(c => c.CardType == type).ToList().Random();
+        List<Card> desirableCards = AllPlayerCards;
+        
+        if (type != CardType.Default)
+            desirableCards = desirableCards.Where(c => c.CardType == type).ToList();
+        if (rarity != Rarity.Default)
+            desirableCards = desirableCards.Where(c => c.Rarity == rarity).ToList();
+
+        return desirableCards.Random();
     }
     
     // TODO : LE JOUEUR CHOISIT QUEL TYPE DE CARTE IL LOOT

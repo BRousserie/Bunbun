@@ -5,22 +5,16 @@ using Map;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RoomManager : MonoBehaviour
+public class RoomManager : Singleton<RoomManager>
 {
-    public static RoomManager Instance;
-    
-    public RoomType CurrentRoomType;
+    [HideInInspector] public RoomType CurrentRoomType;
+    [HideInInspector] public Room CurrentRoom;
     
     
     // Start is called before the first frame update
     void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else Destroy(this);
+        
     }
 
     // Update is called once per frame
