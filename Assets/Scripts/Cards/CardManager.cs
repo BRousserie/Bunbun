@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using Random = System.Random;
 
 public class CardManager : MonoBehaviour
 {
@@ -12,18 +12,17 @@ public class CardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AllCards = Resources.LoadAll("ScriptableObjects/Cards", typeof(Card)).Cast<Card>().ToList();
+        AllCards = Resources.LoadAll("ScriptableObjects/Cards/Players", typeof(Card)).Cast<Card>().ToList();
+        DontDestroyOnLoad(this);
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public Card GetRandomCard(CardType type = CardType.Default)
     {
-        
+        if (type == CardType.Default)
+            return AllCards.Random();
+        else
+            return AllCards.Where(c => c.CardType == type).ToList().Random();
     }
-
-    public Card GetRandomCard()
-    {
-        throw new NotImplementedException();
-    }
+    
+    // TODO : LE JOUEUR CHOISIT QUEL TYPE DE CARTE IL LOOT
 }

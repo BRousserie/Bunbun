@@ -8,7 +8,7 @@ namespace Map
     {
         private static MapConfig config;
 
-        private static readonly List<RoomType> RandomRoomTypes = new List<RoomType>
+        public static readonly List<RoomType> RandomRoomTypes = new List<RoomType>
             {RoomType.Store, RoomType.Treasure, RoomType.MinorEnemy, RoomType.RestSite, RoomType.Mystery};
 
         private static List<List<Point>> paths;

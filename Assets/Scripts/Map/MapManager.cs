@@ -16,7 +16,6 @@ namespace Map
             {
                 string mapJson = PlayerPrefs.GetString("Map");
                 Map map = JsonConvert.DeserializeObject<Map>(mapJson);
-                // TODO: Compare performance of Contains() with Any(p => p.Equals(map.GetBossNode().point))
                 if (!map.playerExploredPoints.Contains(map.GetBossNode().point))
                 {
                     CurrentMap = map;

@@ -23,7 +23,6 @@ namespace Map
         private float mouseDownTime;
         
         public SpriteRenderer spriteRenderer;
-        public SpriteRenderer visitedCircle;
         public Image visitedCircleImage;
         public Node Node { get; private set; }
         public RoomPattern RoomPattern { get; private set; }
@@ -35,14 +34,14 @@ namespace Map
             spriteRenderer.sprite = roomPattern.sprite;
             if (node.roomType == RoomType.Boss) transform.localScale *= 1.5f;
             initialScale = spriteRenderer.transform.localScale.x;
-            visitedCircle.color = MapView.Instance.visitedColor;
-            visitedCircle.gameObject.SetActive(false);
+            visitedCircleImage.color = MapView.Instance.visitedColor;
+            visitedCircleImage.gameObject.SetActive(false);
             SetState(NodeStates.Locked);
         }
 
         public void SetState(NodeStates state)
         {
-            visitedCircle.gameObject.SetActive(false);
+            visitedCircleImage.gameObject.SetActive(false);
             spriteRenderer.DOKill();
             switch (state)
             {
@@ -51,7 +50,7 @@ namespace Map
                     break;
                 case NodeStates.Visited:
                     spriteRenderer.color = MapView.Instance.visitedColor;
-                    visitedCircle.gameObject.SetActive(true);
+                    visitedCircleImage.gameObject.SetActive(true);
                     break;
                 case NodeStates.Attainable: // start pulsating from visited to locked color:
                     spriteRenderer.color = MapView.Instance.lockedColor;

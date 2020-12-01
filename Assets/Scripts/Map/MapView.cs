@@ -280,5 +280,11 @@ namespace Map
             currentNode.SetState(NodeStates.Visited);
             currentNode.Node.outgoing.ForEach(p => GetNode(p)?.SetState(NodeStates.Attainable));
         }
+
+        public void SetCurrentNodeVisited()
+        {
+            List<Point> exploredPoints = mapManager.CurrentMap.playerExploredPoints;
+            GetNode(exploredPoints[exploredPoints.Count - 1]).SetState(NodeStates.Visited);
+        }
     }
 }

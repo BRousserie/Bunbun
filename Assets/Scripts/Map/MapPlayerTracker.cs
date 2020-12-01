@@ -2,6 +2,7 @@
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Map
 {
@@ -48,38 +49,15 @@ namespace Map
             Locked = lockAfterSelecting;
             mapManager.CurrentMap.playerExploredPoints.Add(mapNode.Node.point);
             mapManager.SaveMap();
-            view.UpdateAttainableNodes();
-            view.SetLineColors();
+            // view.SetAttainableNodes();
+            // view.SetLineColors();
+
+            view.SetCurrentNodeVisited();
             mapNode.ShowSwirlAnimation();
 
-            DOTween.Sequence().AppendInterval(enterNodeDelay).OnComplete(() => EnterNode(mapNode));
-        }
 
-        private static void EnterNode(MapNode mapNode)
-        {
-            Debug.Log("Entering node: " + mapNode.Node.roomPatternName + " of type: " + mapNode.Node.roomType);
-            // load appropriate scene with context based on nodeType:
-            // or show appropriate GUI over the map: 
-            // if you choose to show GUI in some of these cases, do not forget to set "Locked" in MapPlayerTracker back to false
-            switch (mapNode.Node.roomType)
-            {
-                case RoomType.MinorEnemy:
-                    break;
-                case RoomType.EliteEnemy:
-                    break;
-                case RoomType.RestSite:
-                    break;
-                case RoomType.Treasure:
-                    break;
-                case RoomType.Store:
-                    break;
-                case RoomType.Boss:
-                    break;
-                case RoomType.Mystery:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            DOTween.Sequence().AppendInterval(enterNodeDelay)
+                .OnComplete(() => RoomManager.Instance.EnterNode(mapNode.Node.roomType));
         }
 
         private void PlayWarningThatNodeCannotBeAccessed()

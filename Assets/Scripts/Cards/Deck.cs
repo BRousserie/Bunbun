@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Deck
+[CreateAssetMenu]
+public class Deck : ScriptableObject
 {
-    public List<Card> Cards { get; private set; }
+    public List<Card> Cards;
     
-    public List<Card> DrawPile { get; private set; }
-    public List<Card> Hand { get; private set; }
-    public List<Card> Discards { get; private set; }
-    public List<Card> Exhausts { get; private set; }
+    [HideInInspector] public List<Card> DrawPile { get; private set; }
+    [HideInInspector] public List<Card> Hand { get; private set; }
+    [HideInInspector] public List<Card> Discards { get; private set; }
+    [HideInInspector] public List<Card> Exhausts { get; private set; }
 
     // Deck Building methods
     public void AddCard(Card card)
@@ -41,7 +42,8 @@ public class Deck
         {
             Hand.Add(card);
             DrawPile.Remove(card);
-        } else if (card != null) Debug.LogWarning("Tried to draw null card");
+        } 
+        else if (card != null) Debug.LogWarning("Tried to draw null card");
         else Debug.LogWarning("Tried to draw " + card.Name + " but it's not been found in drawpile");
     }
 
