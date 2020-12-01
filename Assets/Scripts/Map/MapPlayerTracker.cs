@@ -6,19 +6,13 @@ using UnityEngine.SceneManagement;
 
 namespace Map
 {
-    public class MapPlayerTracker : MonoBehaviour
+    public class MapPlayerTracker : Singleton<MapPlayerTracker>
     {
-        public static MapPlayerTracker Instance;
         public float enterNodeDelay = 1f;
         public bool lockAfterSelecting;
         public MapManager mapManager;
         public MapView view;
         public bool Locked { get; set; }
-
-        private void Awake()
-        {
-            Instance = this;
-        }
 
         public void SelectNode(MapNode mapNode)
         {
@@ -49,15 +43,17 @@ namespace Map
             Locked = lockAfterSelecting;
             mapManager.CurrentMap.playerExploredPoints.Add(mapNode.Node.point);
             mapManager.SaveMap();
-            // view.SetAttainableNodes();
-            // view.SetLineColors();
 
             view.SetCurrentNodeVisited();
             mapNode.ShowSwirlAnimation();
-
-
+            
             DOTween.Sequence().AppendInterval(enterNodeDelay)
-                .OnComplete(() => RoomManager.Instance.EnterNode(mapNode.Node.roomType));
+                .OnComplete(() =>
+                {
+                    RoomManager.Instance.EnterRoom(mapNode.Node.roomType);
+                    view.UpdateAttainableNodes();
+                    view.SetLineColors();
+                });
         }
 
         private void PlayWarningThatNodeCannotBeAccessed()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Map
 {
-    public class MapView : MonoBehaviour
+    public class MapView : Singleton<MapView>
     {
         public enum MapOrientation
         {
@@ -45,11 +45,9 @@ namespace Map
         private readonly List<LineConnection> lineConnections = new List<LineConnection>();
         private List<MapConfig> allMapConfigs;
 
-        public static MapView Instance;
 
         private void Awake()
         {
-            Instance = this;
             cam = Camera.main;
             allMapConfigs = Resources.LoadAll("ScriptableObjects/Map/MapConfigs", typeof(MapConfig))
                 .Cast<MapConfig>().ToList();
