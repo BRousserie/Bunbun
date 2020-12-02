@@ -4,14 +4,9 @@ using Malee.List;
 using Map;
 using UnityEngine;
 
-public enum Rarity
-{
-    Default, Common, Rare, Epic, Legendary
-}
-
 public enum CardType
 {
-    Default, Attack, Effect, Power
+    Default, Attack, Skill, Power
 }
 
 [Serializable, CreateAssetMenu]
