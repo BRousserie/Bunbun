@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Strike
   m_EditorClassIdentifier: 
   Name: Strike
-  Rarity: 1
-  CardType: 1
+  Rarity: {fileID: 11400000, guid: fed21197894b4e9478d32d61468a5f7b, type: 2}
+  CardType: {fileID: 11400000, guid: 8953ae37f5ddbcd4fb8c33c45ca1552a, type: 2}
   Effects:
   - {fileID: 11400000, guid: f593b76982576544988daef6a8039b26, type: 2}
   EnergyCost: 0
-  Sprite: {fileID: 21300000, guid: 996d255e1896f5c46aec7a3daa9b487d, type: 3}
+  Sprite: {fileID: 21300000, guid: 20694efc6ecdf484dacd4f568e722384, type: 3}

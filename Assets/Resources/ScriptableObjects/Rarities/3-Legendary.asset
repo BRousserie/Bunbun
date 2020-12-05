@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Common 1
+  m_Script: {fileID: 11500000, guid: 191237d1c2e693643ab02147c7abfb17, type: 3}
+  m_Name: 3-Legendary
   m_EditorClassIdentifier: Assembly-CSharp::Rarity
-  Name: 
-  DropRate: 0
-  Color: {r: 0, g: 0, b: 0, a: 0}
+  Name: Legendary
+  DropRate: 0.12
+  Color: {r: 0.9622642, g: 0.76862746, b: 0, a: 1}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Cards/Deck")]
 public class Deck : ScriptableObject
 {
     public List<Card> Cards;

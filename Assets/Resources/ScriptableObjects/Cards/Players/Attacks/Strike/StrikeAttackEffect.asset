@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05aed0855afed343bd526cff07b5f98, type: 3}
   m_Name: StrikeAttackEffect
   m_EditorClassIdentifier: 
+  target: 3
   value: 6
   remainingTurns: 0
-  AoE: 0

@@ -4,19 +4,17 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AttackEffect", menuName = "Effects/Attack")]
+[CreateAssetMenu(fileName = "AttackEffect", menuName = "Cards/Effects/Attack")]
 public class AttackEffect : Effect
 {
-    public bool AoE;
-
-    public AttackEffect(int _value, bool _AoE = false) : base(_value)
+    public AttackEffect(Targets _target, int _value = 0, int _remainingTurns = 0) 
+        : base(_target, _value, _remainingTurns)
     {
-        AoE = _AoE;
     }
 
     protected override void Apply(PlayEffectData data)
     {
-        data.target.TakeDamage(value);
+        data.Target.TakeDamage(value);
     }
 
     public override void Repeat(Character target)
@@ -29,7 +27,7 @@ public class AttackEffect : Effect
         string description = "Deal " + value + " damage";
         if (remainingTurns > 0)
             description += " for " + remainingTurns + " turns";
-        if (AoE)
+        if (target == Targets.Ennemies)
             description += " to all ennemies";
         return description;
     }

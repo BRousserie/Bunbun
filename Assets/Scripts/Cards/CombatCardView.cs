@@ -1,40 +1,16 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class CombatCardView : CardView
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void MouseUp()
     {
-        
+        if (CheckCardTarget())
+            Card.Play(new PlayEffectData(owner, target));
+        else
+            ReturnToPosition();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-    
-
-    private void OnMouseDown()
-    {
-        DragCard();
-    }
-
-    private void DragCard()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void OnMouseUp()
-    {
-        CheckCardTarget();
-    }
-
-    private void CheckCardTarget()
+    private bool CheckCardTarget()
     {
         throw new NotImplementedException();
     }

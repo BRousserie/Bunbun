@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Cards/Rarity")]
 public class Rarity : ScriptableObject
 {
     public string Name;

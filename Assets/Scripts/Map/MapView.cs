@@ -47,7 +47,7 @@ namespace Map
         private ScrollNonUI scrollNonUi;
 
 
-        private void Awake()
+        private new void Awake()
         {
             base.Awake();
             cam = Camera.main;

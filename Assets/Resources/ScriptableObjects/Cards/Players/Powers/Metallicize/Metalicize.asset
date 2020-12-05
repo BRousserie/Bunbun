@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Metalicize
   m_EditorClassIdentifier: 
   Name: Block
-  Rarity: 3
-  CardType: 3
+  Rarity: {fileID: 11400000, guid: 50a2dd23726386c489e065a7682afbca, type: 2}
+  CardType: {fileID: 11400000, guid: 182161e9de807794f95bbb74d8f8f089, type: 2}
   Effects:
   - {fileID: 11400000, guid: 99b3a8073f35b4247b35fd5ed0cb078d, type: 2}
   EnergyCost: 0
-  Sprite: {fileID: 21300000, guid: 67cee7986c54dbd47a6b9d29fb23210f, type: 3}
+  Sprite: {fileID: 21300000, guid: 67668631e4b4ad14ea4c45b688117597, type: 3}

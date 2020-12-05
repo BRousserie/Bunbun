@@ -6,16 +6,20 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "DrawEffect", menuName = "Effects/Draw")]
+[CreateAssetMenu(fileName = "DrawEffect", menuName = "Cards/Effects/Draw")]
 public class DrawEffect : Effect
 {
-    
+    public DrawEffect(Targets _target, int _value = 0, int _remainingTurns = 0) 
+        : base(_target, _value, _remainingTurns)
+    {
+    }
+
     protected override void Apply(PlayEffectData data)
     {
         if (remainingTurns == 0)
-            data.target.Deck.Draw(value);
+            data.Target.Deck.Draw(value);
         else
-            data.target.TurnEndsEffects.Add(this);
+            data.Target.TurnEndsEffects.Add(this);
     }
 
     public override void Repeat(Character target)

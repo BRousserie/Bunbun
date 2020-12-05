@@ -5,16 +5,20 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(fileName = "BlockEffect", menuName = "Effects/Block")]
+[CreateAssetMenu(fileName = "BlockEffect", menuName = "Cards/Effects/Block")]
 public class BlockEffect : Effect
 {
+    public BlockEffect(Targets _target, int _value = 0, int _remainingTurns = 0) 
+        : base(_target, _value, _remainingTurns)
+    {
+    }
 
     protected override void Apply(PlayEffectData data)
     {
         if (remainingTurns == 0)
-            data.target.AddBlock(value);
+            data.Target.AddBlock(value);
         else
-            data.target.TurnEndsEffects.Add(this);
+            data.Target.TurnEndsEffects.Add(this);
     }
 
     public override void Repeat(Character target)
@@ -29,7 +33,7 @@ public class BlockEffect : Effect
         if (remainingTurns > 0)
             description += " at the end for your turn for " + remainingTurns + " turns";
         if (remainingTurns == -1)
-            description += " for " + remainingTurns + " turns";
+            description += " at the end of your turns";
         return description;
     }
 }

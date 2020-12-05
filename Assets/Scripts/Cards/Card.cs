@@ -4,16 +4,11 @@ using Malee.List;
 using Map;
 using UnityEngine;
 
-public enum CardType
-{
-    Default, Attack, Skill, Power
-}
-
-[Serializable, CreateAssetMenu]
+[Serializable, CreateAssetMenu(menuName = "Cards/Card")]
 public class Card : ScriptableObject
 {
     public string Name;
-    private string description;
+    [SerializeField] private string description;
     public string Description
     {
         get

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Draw
   m_EditorClassIdentifier: 
   Name: Draw
-  Rarity: 0
-  CardType: 2
+  Rarity: {fileID: 11400000, guid: e2c4008966ebef64889d9742126dc8e7, type: 2}
+  CardType: {fileID: 11400000, guid: 52b989b34154e6544961aef1f384dcd2, type: 2}
   Effects:
   - {fileID: 11400000, guid: 9835767d82e59cf4ea7085ceb9d86e9c, type: 2}
   EnergyCost: 0

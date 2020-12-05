@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a0d71751d837441b2372d719778c20, type: 3}
   m_Name: BlockEffect
   m_EditorClassIdentifier: 
+  target: 1
   value: 5
   remainingTurns: 0

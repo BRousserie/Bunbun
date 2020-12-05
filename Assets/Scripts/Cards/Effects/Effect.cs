@@ -3,23 +3,35 @@ using UnityEngine;
 
 public struct PlayEffectData
 {
-    public Character source;
-    public Character target;
+    public Character Source;
+    public Character Target;
 
     public PlayEffectData(Character _source, Character _target)
     {
-        source = _source;
-        target = _target;
+        Source = _source;
+        Target = _target;
     }
+}
+
+public enum Targets
+{
+    EffectDependant, // Different effects on this card have different targets
+    Self, // Towards card owner
+    Team, // Towards player team
+    Player, // Towards a player
+    Ennemy, // Towards an ennemy
+    Ennemies // Towards all ennemies
 }
 
 public abstract class Effect : ScriptableObject
 {
+    public Targets target;
     public int value;
     public int remainingTurns;
 
-    public Effect(int _value = 0, int _remainingTurns = 0)
+    public Effect(Targets _target, int _value = 0, int _remainingTurns = 0)
     {
+        target = _target;
         value = _value;
         remainingTurns = _remainingTurns;
     }

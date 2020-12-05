@@ -9,24 +9,28 @@ using Random = UnityEngine.Random;
 public class CardManager : Singleton<CardManager>
 {
     public List<Card> AllPlayerCards { get; private set; }
+    private Sprite _attackSprite;
+    private Sprite _skillSprite;
+    private Sprite _powerSprite;
     public List<Rarity> Rarities { get; private set; }
+    public List<CardType> Types { get; private set; }
     private float DropRatesSum;
     
-    // Start is called before the first frame update
     void Start()
     {
         AllPlayerCards = Resources.LoadAll("ScriptableObjects/Cards/Players", typeof(Card)).Cast<Card>().ToList();
         Rarities = Resources.LoadAll("ScriptableObjects/Rarities", typeof(Rarity))
             .Cast<Rarity>().OrderByDescending(r => r.DropRate).ToList();
+        Types = Resources.LoadAll("ScriptableObjects/CardTypes", typeof(CardType)).Cast<CardType>().ToList();
         DropRatesSum = Rarities.Sum(r => r.DropRate);
     }
 
-    public Card GetRandomCard(CardType type = CardType.Default, Rarity rarity = null, bool andRarer = true)
+    public Card GetRandomCard(CardTypes type = CardTypes.Default, Rarity rarity = null, bool andRarer = true)
     {
         List<Card> desirableCards = AllPlayerCards;
         
-        if (type != CardType.Default)
-            desirableCards = desirableCards.Where(c => c.CardType == type).ToList();
+        if (type != CardTypes.Default)
+            desirableCards = desirableCards.Where(c => c.CardType == GetCardType(type)).ToList();
 
         if (andRarer)
             rarity = GetRandomRarity((rarity != null) ? Rarities.IndexOf(rarity) : 0);
@@ -51,6 +55,11 @@ public class CardManager : Singleton<CardManager>
         Debug.LogError("GetRandomRarity didn't return during for-loop");
         return Rarities[0];
     }
-    
+
+    public CardType GetCardType(CardTypes type)
+    {
+        return Types.Find(c => c.Type == type);
+    }
+
     // TODO : LE JOUEUR CHOISIT QUEL TYPE DE CARTE IL LOOT
 }

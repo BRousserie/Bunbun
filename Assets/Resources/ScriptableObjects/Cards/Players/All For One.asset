@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7c42112b4276f429c539f112194891, type: 3}
   m_Name: All For One
   m_EditorClassIdentifier: 
-  Name: 
-  Rarity: 0
-  CardType: 0
+  Name: AllForOne
+  Rarity: {fileID: 11400000, guid: d34ac19d0eeb7c74c9b8dd41febc6529, type: 2}
+  CardType: {fileID: 11400000, guid: 52b989b34154e6544961aef1f384dcd2, type: 2}
   Effects:
   - {fileID: 11400000, guid: 826381e457f92d14eb916735a0972e87, type: 2}
   - {fileID: 11400000, guid: 9835767d82e59cf4ea7085ceb9d86e9c, type: 2}
   - {fileID: 11400000, guid: f593b76982576544988daef6a8039b26, type: 2}
   EnergyCost: 3
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: d02ac31126cfd4b408a2ab6d8ff409d6, type: 3}
