@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7c42112b4276f429c539f112194891, type: 3}
   m_Name: Metalicize
   m_EditorClassIdentifier: 
-  Name: Block
+  Name: Metallicize
+  description: 'Gain 3 block at the end of your turns
+
+'
   Rarity: {fileID: 11400000, guid: 50a2dd23726386c489e065a7682afbca, type: 2}
   CardType: {fileID: 11400000, guid: 182161e9de807794f95bbb74d8f8f089, type: 2}
   Effects:

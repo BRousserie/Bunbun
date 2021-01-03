@@ -128,8 +128,8 @@ public abstract class CardView : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         dissolver.effectFactor = (_in) ? 1.0f : 0.0f;
         DOTween.To(() => dissolver.effectFactor, x => dissolver.effectFactor = x,
-            (_in) ? 0.0f : 1.0f, DissolversFadeTime)
+                (_in) ? 0.0f : 1.0f, DissolversFadeTime)
             .SetEase(Ease.InOutCubic)
-            .onComplete += () => Destroy(gameObject);
+            .onComplete += () => { if (!_in) Destroy(gameObject); };
     }
 }
