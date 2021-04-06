@@ -1,18 +1,30 @@
-﻿
+﻿using UnityEngine;
 
-public class LootCardView : CardView
+namespace Cards
 {
-    protected override void MouseUp()
+    public class LootCardView : CardView
     {
-        if (target == null)
-            ReturnToPosition();
-        else
-            lootCard();
-    }
+        protected override void MouseUp()
+        {
+            if (target == null)
+                ReturnToPosition();
+            else
+                lootCard();
+        }
 
-    private void lootCard()
-    {
-        target.Deck.AddCard(Card);
-        DissolveOut();
+        protected override void Drag()
+        {
+            Vector3 mousePos = Input.mousePosition;
+            transform.localPosition = new Vector3(
+                mousePos.x - originalMousePosition.x, 
+                mousePos.y - originalMousePosition.y,
+                transform.localPosition.z);
+        }
+
+        private void lootCard()
+        {
+            target.Deck.AddCard(Card);
+            DissolveOut();
+        }
     }
 }

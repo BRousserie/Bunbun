@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Utils;
 
-public class CharacterManager : Singleton<CharacterManager>
+namespace Characters
 {
-    public Player Player1;
-    public Player Player2;
+    public class CharacterManager : Singleton<CharacterManager>
+    {
+        public Player Player1;
+        public Player Player2;
     
-    // Start is called before the first frame update
-    void Start()
-    {
+        // Start is called before the first frame update
+        void Start()
+        {
         
-    }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
         
+        }
     }
 }

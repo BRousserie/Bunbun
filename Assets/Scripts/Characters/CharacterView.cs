@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CharacterView : MonoBehaviour
+namespace Characters
 {
-    public Character Character;
+    public class CharacterView : MonoBehaviour
+    {
+        public Character Character;
+    }
 }

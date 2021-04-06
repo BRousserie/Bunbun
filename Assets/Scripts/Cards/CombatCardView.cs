@@ -1,17 +1,26 @@
 ﻿using System;
+using Cards.Effects;
 
-public class CombatCardView : CardView
+namespace Cards
 {
-    protected override void MouseUp()
+    public class CombatCardView : CardView
     {
-        if (CheckCardTarget())
-            Card.Play(new PlayEffectData(owner, target));
-        else
-            ReturnToPosition();
-    }
+        protected override void MouseUp()
+        {
+            if (CheckCardTarget())
+                Card.Play(new PlayEffectData(owner, target));
+            else
+                ReturnToPosition();
+        }
 
-    private bool CheckCardTarget()
-    {
-        throw new NotImplementedException();
+        protected override void Drag()
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CheckCardTarget()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

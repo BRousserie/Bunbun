@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Player : Character
+﻿namespace Characters
 {
-    public int Money { get; private set; }
+    public class Player : Character
+    {
+        public int Money { get; private set; }
+    }
 }

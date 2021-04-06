@@ -1,36 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using Malee.List;
-using Map;
+using Cards.Effects;
 using UnityEngine;
 
-[Serializable, CreateAssetMenu(menuName = "Cards/Card")]
-public class Card : ScriptableObject
+namespace Cards
 {
-    public string Name;
-    [SerializeField] private string description;
-    public string Description
+    [Serializable, CreateAssetMenu(menuName = "Cards/Card")]
+    public class Card : ScriptableObject
     {
-        get
+        public string Name;
+        [SerializeField] private string description;
+        public string Description
         {
-            if (description.Length == 0)
-                foreach (Effect effect in Effects) description += effect.Description() + "\n";
-            return description;
+            get
+            {
+                if (description.Length == 0)
+                    foreach (Effect effect in Effects) description += effect.Description() + "\n";
+                return description;
+            }
+            private set { description = value; }
         }
-        private set { description = value; }
-    }
 
-    public Rarity Rarity;
-    public CardType CardType;
-    public List<Effect> Effects;
-    public int EnergyCost;
-    public Sprite Sprite;
+        public Rarity Rarity;
+        public CardType CardType;
+        public List<Effect> Effects;
+        public int EnergyCost;
+        public Sprite Sprite;
 
-    public void Play(PlayEffectData data)
-    {
-        foreach (Effect effect in Effects)
+        public void Play(PlayEffectData data)
         {
-            effect.Play(data);
+            foreach (Effect effect in Effects)
+            {
+                effect.Play(data);
+            }
         }
     }
 }

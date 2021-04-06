@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using DG.Tweening;
+using Room;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 namespace Map
 {
@@ -47,7 +49,7 @@ namespace Map
             view.SetCurrentNodeVisited();
             mapNode.ShowSwirlAnimation();
             
-            DOTween.Sequence().AppendInterval(enterNodeDelay)
+            DG.Tweening.DOTween.Sequence().AppendInterval(enterNodeDelay)
                 .OnComplete(() =>
                 {
                     RoomManager.Instance.EnterRoom(mapNode.Node.roomType);

@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cards/Rarity")]
-public class Rarity : ScriptableObject
+namespace Cards
 {
-    public string Name;
-    public float DropRate;
-    public Color Color;
+    [CreateAssetMenu(menuName = "Cards/Rarity")]
+    public class Rarity : ScriptableObject
+    {
+        public string Name;
+        public float DropRate;
+        public Color Color;
+    }
 }

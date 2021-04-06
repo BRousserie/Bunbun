@@ -1069,7 +1069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8343801716193327417, guid: 80a09197b426f1f47bbfc7d71c059745, type: 3}
       propertyPath: m_Name
-      value: CardManager
+      value: Managers
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80a09197b426f1f47bbfc7d71c059745, type: 3}

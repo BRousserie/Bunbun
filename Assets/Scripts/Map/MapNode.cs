@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using DOTween.Modules;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -91,7 +92,7 @@ namespace Map
                 const float fillDuration = 0.3f;
                 visitedCircleImage.fillAmount = 0;
 
-                DOTween.To(() => visitedCircleImage.fillAmount, 
+                DG.Tweening.DOTween.To(() => visitedCircleImage.fillAmount, 
                     x => visitedCircleImage.fillAmount = x, 1f, fillDuration);
             }        
         }

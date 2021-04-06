@@ -1,22 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Map;
+﻿using Map;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RoomUI : MonoBehaviour
+namespace Room
 {
-    public Button Compass;
-    private bool showMap = true;
-    
-    void Start()
+    public class RoomUI : MonoBehaviour
     {
-        Compass.onClick.AddListener(ShowMap);
-    }
+        public Button Compass;
+        private bool showMap = true;
     
-    void ShowMap()
-    {
-        MapView.Instance.SetVisible(showMap);
-        showMap = !showMap;
+        void Start()
+        {
+            Compass.onClick.AddListener(ShowMap);
+        }
+    
+        void ShowMap()
+        {
+            MapView.Instance.SetVisible(showMap);
+            showMap = !showMap;
+        }
     }
 }

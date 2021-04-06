@@ -1,25 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public static class Statics
+namespace Utils
 {
-    private static bool _gotCamera = false;
-    private static Camera mainCamera;
-    public static Camera MainCamera
+    public static class Statics
     {
-        get
+        private static bool _gotCamera = false;
+        private static Camera mainCamera;
+        public static Camera MainCamera
         {
-            if (!_gotCamera) // less expensive than mainCamera == null 
+            get
             {
-                mainCamera = Camera.main;
-                _gotCamera = true;
+                if (!_gotCamera) // less expensive than mainCamera == null 
+                {
+                    mainCamera = Camera.main;
+                    _gotCamera = true;
+                }
+                return mainCamera;
             }
-            return mainCamera;
         }
-    }
-    public static Vector3 MouseInWorldCoords()
-    {
-        return MainCamera.ScreenToWorldPoint(Input.mousePosition);
+        public static Vector3 MouseInWorldCoords()
+        {
+            return MainCamera.ScreenToWorldPoint(Input.mousePosition);
+        }
     }
 }

@@ -1,22 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Map;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
-public abstract class Room : MonoBehaviour
+namespace Room
 {
-    // Start is called before the first frame update
-    protected virtual void Start()
+    public abstract class Room : MonoBehaviour
     {
-        RoomManager.Instance.CurrentRoom = this;
-    }
+        // Start is called before the first frame update
+        protected virtual void Start()
+        {
+            RoomManager.Instance.CurrentRoom = this;
+        }
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        if (Input.GetKey(KeyCode.M))
-            RoomManager.Instance.ExitRoom();
+        // Update is called once per frame
+        protected virtual void Update()
+        {
+            if (Input.GetKey(KeyCode.M))
+                RoomManager.Instance.ExitRoom();
         
+        }
     }
 }

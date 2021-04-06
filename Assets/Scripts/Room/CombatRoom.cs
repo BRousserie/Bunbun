@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CombatRoom : Room
+﻿namespace Room
 {
+    public class CombatRoom : Room
+    {
+    }
 }
