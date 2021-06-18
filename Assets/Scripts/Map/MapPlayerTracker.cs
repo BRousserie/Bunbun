@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Linq;
 using DG.Tweening;
+using Room;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Utils;
 
 namespace Map
 {
-    public class MapPlayerTracker : MonoBehaviour
+    public class MapPlayerTracker : Singleton<MapPlayerTracker>
     {
-        public static MapPlayerTracker Instance;
         public float enterNodeDelay = 1f;
         public bool lockAfterSelecting;
         public MapManager mapManager;
         public MapView view;
         public bool Locked { get; set; }
-
-        private void Awake()
-        {
-            Instance = this;
-        }
 
         public void SelectNode(MapNode mapNode)
         {
@@ -48,38 +45,18 @@ namespace Map
             Locked = lockAfterSelecting;
             mapManager.CurrentMap.playerExploredPoints.Add(mapNode.Node.point);
             mapManager.SaveMap();
-            view.UpdateAttainableNodes();
-            view.SetLineColors();
+
+            view.SetCurrentNodeVisited();
             mapNode.ShowSwirlAnimation();
-
-            DOTween.Sequence().AppendInterval(enterNodeDelay).OnComplete(() => EnterNode(mapNode));
-        }
-
-        private static void EnterNode(MapNode mapNode)
-        {
-            Debug.Log("Entering node: " + mapNode.Node.roomPatternName + " of type: " + mapNode.Node.roomType);
-            // load appropriate scene with context based on nodeType:
-            // or show appropriate GUI over the map: 
-            // if you choose to show GUI in some of these cases, do not forget to set "Locked" in MapPlayerTracker back to false
-            switch (mapNode.Node.roomType)
-            {
-                case RoomType.MinorEnemy:
-                    break;
-                case RoomType.EliteEnemy:
-                    break;
-                case RoomType.RestSite:
-                    break;
-                case RoomType.Treasure:
-                    break;
-                case RoomType.Store:
-                    break;
-                case RoomType.Boss:
-                    break;
-                case RoomType.Mystery:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            
+            DG.Tweening.DOTween.Sequence().AppendInterval(enterNodeDelay)
+                .OnComplete(() =>
+                {
+                    RoomManager.Instance.EnterRoom(mapNode.Node.roomType);
+                    view.SetVisible(false);
+                    view.UpdateAttainableNodes();
+                    view.SetLineColors();
+                });
         }
 
         private void PlayWarningThatNodeCannotBeAccessed()

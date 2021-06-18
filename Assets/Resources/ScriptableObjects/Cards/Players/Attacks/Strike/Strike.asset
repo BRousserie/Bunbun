@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7c42112b4276f429c539f112194891, type: 3}
+  m_Name: Strike
+  m_EditorClassIdentifier: 
+  Name: Strike
+  Rarity: {fileID: 11400000, guid: fed21197894b4e9478d32d61468a5f7b, type: 2}
+  CardType: {fileID: 11400000, guid: 8953ae37f5ddbcd4fb8c33c45ca1552a, type: 2}
+  Effects:
+  - {fileID: 11400000, guid: f593b76982576544988daef6a8039b26, type: 2}
+  EnergyCost: 0
+  Sprite: {fileID: 21300000, guid: 20694efc6ecdf484dacd4f568e722384, type: 3}

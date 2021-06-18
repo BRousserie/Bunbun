@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 namespace Map
 {
-    public class MapView : MonoBehaviour
+    public class MapView : Singleton<MapView>
     {
         public enum MapOrientation
         {
@@ -18,7 +19,6 @@ namespace Map
         public MapManager mapManager;
         public MapOrientation orientation;
 
-        [Tooltip("List of the MapConfigs to use (= acts)")] public List<MapConfig> allMapConfigs;
         public GameObject nodePrefab;
         [Tooltip("Offset of both ends of the map from the edges of the screen")] public float mapEndsMargin;
         
@@ -44,13 +44,16 @@ namespace Map
         private List<List<Point>> paths;
         private readonly List<MapNode> MapNodes = new List<MapNode>();
         private readonly List<LineConnection> lineConnections = new List<LineConnection>();
+        private List<MapConfig> allMapConfigs;
+        private ScrollNonUI scrollNonUi;
 
-        public static MapView Instance;
 
-        private void Awake()
+        private new void Awake()
         {
-            Instance = this;
+            base.Awake();
             cam = Camera.main;
+            allMapConfigs = Resources.LoadAll("ScriptableObjects/Map/MapConfigs", typeof(MapConfig))
+                .Cast<MapConfig>().ToList();
         }
 
         public void ShowMap(Map m)
@@ -84,7 +87,7 @@ namespace Map
             firstParent = new GameObject("OuterMapParent");
             mapParent = new GameObject("MapParentWithAScroll");
             mapParent.transform.SetParent(firstParent.transform);
-            ScrollNonUI scrollNonUi = mapParent.AddComponent<ScrollNonUI>();
+            scrollNonUi = mapParent.AddComponent<ScrollNonUI>();
             scrollNonUi.freezeX = orientation == MapOrientation.BottomToTop || orientation == MapOrientation.TopToBottom;
             scrollNonUi.freezeY = orientation == MapOrientation.LeftToRight || orientation == MapOrientation.RightToLeft;
             BoxCollider boxCollider = mapParent.AddComponent<BoxCollider>();
@@ -140,7 +143,6 @@ namespace Map
 
         private void SetOrientation()
         {
-            ScrollNonUI scrollNonUi = mapParent.GetComponent<ScrollNonUI>();
             if (scrollNonUi)
             {
                 float span = mapManager.CurrentMap.DistanceBetweenFirstAndLastLayers();
@@ -149,16 +151,16 @@ namespace Map
                 switch (orientation)
                 {
                     case MapOrientation.BottomToTop:
-                        SetVerticalOrientation(scrollNonUi, -distanceLimit, 0, mapEndsMargin, 0);
+                        SetVerticalOrientation(-distanceLimit, 0, mapEndsMargin, 0);
                         break;
                     case MapOrientation.TopToBottom:
-                        SetVerticalOrientation(scrollNonUi, 0, distanceLimit, -mapEndsMargin, 180);
+                        SetVerticalOrientation(0, distanceLimit, -mapEndsMargin, 180);
                         break;
                     case MapOrientation.RightToLeft:
-                        SetHorizontalOrientation(scrollNonUi, 0, distanceLimit, -mapEndsMargin * cam.aspect, 90);
+                        SetHorizontalOrientation(0, distanceLimit, -mapEndsMargin * cam.aspect, 90);
                         break;
                     case MapOrientation.LeftToRight:
-                        SetHorizontalOrientation(scrollNonUi, -distanceLimit, 0, mapEndsMargin * cam.aspect, -90);
+                        SetHorizontalOrientation(-distanceLimit, 0, mapEndsMargin * cam.aspect, -90);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -166,7 +168,7 @@ namespace Map
             }
         }
         
-        private void SetVerticalOrientation(ScrollNonUI scrollNonUi, float ymin, float ymax, float offset, float angle)
+        private void SetVerticalOrientation(float ymin, float ymax, float offset, float angle)
         {
             mapParent.transform.eulerAngles = new Vector3(0, 0, angle);
             firstParent.transform.localPosition += new Vector3(0, offset, 0);
@@ -174,7 +176,7 @@ namespace Map
             scrollNonUi.yConstraints.max = ymax;
         }
 
-        private void SetHorizontalOrientation(ScrollNonUI scrollNonUi, float xmin, float xmax, float offset, float angle)
+        private void SetHorizontalOrientation(float xmin, float xmax, float offset, float angle)
         {
             mapParent.transform.eulerAngles = new Vector3(0, 0, angle);
             float bossY = MapNodes.FirstOrDefault(n => n.Node.roomType == RoomType.Boss).transform.position.y;
@@ -273,10 +275,25 @@ namespace Map
             if (exploredPoints.Count > 1)
                 GetNode(exploredPoints[exploredPoints.Count - 2])?
                     .Node.outgoing.ForEach(p => GetNode(p)?.SetState(NodeStates.Locked));
+            else
+                foreach (MapNode node in MapNodes.Where(n => n.Node.point.y == 0))
+                    node.SetState(NodeStates.Locked);
             
             MapNode currentNode = GetNode(exploredPoints[exploredPoints.Count - 1]);
             currentNode.SetState(NodeStates.Visited);
             currentNode.Node.outgoing.ForEach(p => GetNode(p)?.SetState(NodeStates.Attainable));
+            scrollNonUi.FocusNode(currentNode);
+        }
+
+        public void SetCurrentNodeVisited()
+        {
+            List<Point> exploredPoints = mapManager.CurrentMap.playerExploredPoints;
+            GetNode(exploredPoints[exploredPoints.Count - 1]).SetState(NodeStates.Visited);
+        }
+
+        public void SetVisible(bool value) 
+        {
+            firstParent.SetActive(value);
         }
     }
 }

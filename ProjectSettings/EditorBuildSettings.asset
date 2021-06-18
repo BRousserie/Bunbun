@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Map.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Combat.unity
+    guid: ac2adf92ba098e5449c77461ad5d83c1
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Restsite.unity
+    guid: 01abe1a5c045ef54cbde865697c715a9
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Store.unity
+    guid: 0029a5ebfeef7514e930692e4bf64e3b
+  - enabled: 1
+    path: Assets/Scenes/Rooms/Treasure.unity
+    guid: 8e201a8ea80fb224bb02c4ba5e4f8163
   m_configObjects: {}
